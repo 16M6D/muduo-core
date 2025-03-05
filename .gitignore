@@ -1,0 +1,10 @@
+
+build/
+
+*.log
+
+.vscode/
+
+*.o
+
+CMakeLists.txt.user
