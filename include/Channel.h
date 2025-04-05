@@ -32,7 +32,7 @@ public:
 
     int fd() const { return fd_; }
     int events() const { return events_; }
-    int set_revents(int revt) { revents_ = revt; }
+    void set_revents(int revt) { revents_ = revt; }
 
     // 让fd注册事件
     // update()就是一个epoll ctl，通知poller当前fd感兴趣的事件

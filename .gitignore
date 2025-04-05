@@ -8,3 +8,4 @@ build/
 *.so
 
 CMakeLists.txt.user
+example/testserver
