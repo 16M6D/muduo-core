@@ -1,5 +1,6 @@
 #include "EventLoopThread.h"
 #include "EventLoop.h"
+#include <sched.h>
 
 EventLoopThread::EventLoopThread(const ThreadInitCallback &cb,
     const std::string &name)
@@ -37,6 +38,21 @@ EventLoop* EventLoopThread::startLoop()
     }
     return loop;
 }
+
+void EventLoopThread::setCpuAffinity(int cpu_id) 
+{
+    cpu_set_t cpu_set;
+    CPU_ZERO(&cpu_set); // 清空CPU集合
+    CPU_SET(cpu_id, &cpu_set); // 将特定的CPU核心加入集合
+
+    int result = pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpu_set);
+    if (result != 0) {
+        std::cerr << "Failed to set CPU affinity: " << result << std::endl;
+    } else {
+        std::cout << "Thread bound to CPU " << cpu_id << std::endl;
+    }
+}
+
 
 void EventLoopThread::threadFunc()
 {

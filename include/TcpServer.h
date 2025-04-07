@@ -45,6 +45,8 @@ public:
     void setMessageCallback(const MessageCallback &cb) { messageCallback_ = cb; }
 
     // 设置subloop的个数,应该与CPU核数匹配
+    static int getCPUcores();
+    
     void setThreadNum(int numThreads);
 
     // 开启服务器监听

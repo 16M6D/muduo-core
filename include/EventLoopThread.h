@@ -19,6 +19,7 @@ public:
         const std::string &name = std::string());
     ~EventLoopThread();
     EventLoop* startLoop();
+    void setCpuAffinity(int cpu_id);
 private:
     void threadFunc();
 

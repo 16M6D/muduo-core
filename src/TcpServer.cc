@@ -45,10 +45,23 @@ TcpServer::~TcpServer()
     }
 }
 
+int TcpServer::getCPUcores() 
+{
+    unsigned int cores = std::thread::hardware_concurrency();
+    return cores; // 至少CPU核数设置为 1
+}
+
 // 设置subloop数
 void TcpServer::setThreadNum(int numThreads)
 {
-    threadPool_->setThreadNum(numThreads);
+    if (numThreads > 0) 
+    {
+        threadPool_->setThreadNum(numThreads);
+    }
+    else 
+    {
+        threadPool_->setThreadNum(getCPUcores());
+    }
 }
 
 // 开启服务器监听 => 即将开始loop.loop()监听事件

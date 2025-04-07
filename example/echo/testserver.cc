@@ -15,6 +15,7 @@ public:
         server_.setMessageCallback(std::bind(&EcoServer::onMessage, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
         
         // 设置合适的loop线程数量 one loop per thread. 1 mainloop + 3 subloop
+        // 设置为 0 表示由系统CPU核数决定
         server_.setThreadNum(0);
     }
 

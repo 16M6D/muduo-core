@@ -1,6 +1,6 @@
 #include "EventLoopThreadPool.h"
 #include "EventLoopThread.h"
-
+#include "TcpServer.h"
 #include <memory>
 
 EventLoopThreadPool::EventLoopThreadPool(EventLoop* baseLoop, const std::string &nameArg)
@@ -23,6 +23,7 @@ void EventLoopThreadPool::start(const ThreadInitCallback &cb)
         char buf[name_.size() + 32];
         snprintf(buf, sizeof buf, "%s%d", name_.c_str(), i);
         EventLoopThread* t = new EventLoopThread(cb, buf);
+        t->setCpuAffinity(i % TcpServer::getCPUcores());
         threads_.push_back(std::unique_ptr<EventLoopThread>(t));
         loops_.push_back(t->startLoop()); // 底层创建线程,绑定一个新的EventLoop,并返回Loop的地址
     }
