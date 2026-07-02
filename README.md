@@ -32,4 +32,4 @@ WSL2 (Linux 5.15), echo server, keep-alive 长连接:
 
 - `setThreadNum(0)` 时自动匹配 CPU 核心数。
 - 默认支持 CPU 亲和性绑定。
-- 在多核机器上建议 `setThreadNum(0)` + 绑定核心。
+- 在多核机器上建议 `setThreadNum(0)` + 绑定核心。它需要new线程出来吗?**
